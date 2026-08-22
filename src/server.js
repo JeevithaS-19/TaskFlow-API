@@ -5,6 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/db");
 const taskRoutes = require("./routes/taskRoutes");
+const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
@@ -20,6 +21,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/tasks", taskRoutes);
+
+
+// Error middleware MUST be last
+app.use(errorHandler);
 
 connectDB();
 

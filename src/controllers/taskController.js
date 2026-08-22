@@ -1,6 +1,6 @@
 const Task = require("../models/taskModel");
 
-const createTask = async (req, res) => {
+const createTask = async (req, res, next) => {
     try {
         const { title, description, priority, status, dueDate } = req.body;
 
@@ -18,14 +18,11 @@ const createTask = async (req, res) => {
             data: task
         });
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
+        next(error);
     }
 };
 
-const getTasks = async (req, res) => {
+const getTasks = async (req, res, next) => {
     try {
         const tasks = await Task.find().sort({ createdAt: -1 });
 
@@ -35,14 +32,11 @@ const getTasks = async (req, res) => {
             data: tasks
         });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        next(error);
     }
 };
 
-const getTaskById = async (req, res) => {
+const getTaskById = async (req, res, next) => {
     try {
         const task = await Task.findById(req.params.id);
 
@@ -58,14 +52,11 @@ const getTaskById = async (req, res) => {
             data: task
         });
     } catch (error) {
-        res.status(404).json({
-            success: false,
-            message: "Invalid task ID"
-        });
+        next(error);
     }
 };
 
-const updateTask = async (req, res) => {
+const updateTask = async (req, res, next) => {
     try {
         const task = await Task.findByIdAndUpdate(
             req.params.id,
@@ -89,14 +80,11 @@ const updateTask = async (req, res) => {
             data: task
         });
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
+        next(error);
     }
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
     try {
         const task = await Task.findByIdAndDelete(req.params.id);
 
@@ -113,10 +101,7 @@ const deleteTask = async (req, res) => {
             data: task
         });
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "Invalid task ID"
-        });
+        next(error);
     }
 };
 
