@@ -26,8 +26,12 @@ app.use("/api/tasks", taskRoutes);
 // Error middleware MUST be last
 app.use(errorHandler);
 
-connectDB();
+if (require.main === module) {
+    connectDB();
 
-app.listen(PORT, () => {
-    console.log(`TaskFlow API running on http://localhost:${PORT}`);
-});
+    app.listen(PORT, () => {
+        console.log(`TaskFlow API running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
