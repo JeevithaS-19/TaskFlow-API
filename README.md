@@ -91,3 +91,28 @@ Successfully retrieved all stored tasks using:
 Successfully retrieved an individual task using:
 
 `GET /api/tasks/:id`
+
+## Update and Delete Verification
+
+The following REST API operations were verified using Postman:
+
+| Method | Endpoint | Result |
+|---|---|---|
+| PUT | `/api/tasks/:id` | 200 OK |
+| DELETE | `/api/tasks/:id` | 200 OK |
+
+### Update Task
+
+Successfully updated an existing task using:
+
+`PUT /api/tasks/:id`
+
+The updated task was then retrieved using `GET /api/tasks/:id` to verify that the changes were persisted.
+
+### Delete Task
+
+Successfully deleted the task using:
+
+`DELETE /api/tasks/:id`
+
+A subsequent `GET /api/tasks/:id` returned `404 Not Found`, confirming that the task was removed successfully.
